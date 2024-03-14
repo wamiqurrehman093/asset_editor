@@ -1,0 +1,100 @@
+[gd_scene load_steps=4 format=3 uid="uid://bq0gmbfvnqoli"]
+
+[ext_resource type="Theme" uid="uid://dys62uqmu2c03" path="res://resource/theme/basic_theme.tres" id="1_gdwxn"]
+[ext_resource type="Script" path="res://source/mtl_editor/mtl_editor.gd" id="2_130ew"]
+[ext_resource type="PackedScene" uid="uid://cmgokd71hvu0f" path="res://source/material_editor/material_editor.tscn" id="3_18kwm"]
+
+[node name="mtl_editor" type="Control" node_paths=PackedStringArray("path_line_edit", "browse_button", "load_button", "file_dialog", "back_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_gdwxn")
+script = ExtResource("2_130ew")
+path_line_edit = NodePath("margin_container/content/file_load_section/path")
+browse_button = NodePath("margin_container/content/file_load_section/browse")
+load_button = NodePath("margin_container/content/file_load_section/load")
+file_dialog = NodePath("margin_container/content/file_load_section/file_dialog")
+back_button = NodePath("margin_container/content/back")
+
+[node name="background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="margin_container" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="content" type="VBoxContainer" parent="margin_container"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin_container/content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "MTL EDITOR"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="file_load_section" type="HBoxContainer" parent="margin_container/content"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+
+[node name="label" type="Label" parent="margin_container/content/file_load_section"]
+layout_mode = 2
+text = "File Path"
+
+[node name="path" type="LineEdit" parent="margin_container/content/file_load_section"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="browse" type="Button" parent="margin_container/content/file_load_section"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_vertical = 4
+text = "..."
+
+[node name="load" type="Button" parent="margin_container/content/file_load_section"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_vertical = 4
+text = "LOAD"
+
+[node name="save" type="Button" parent="margin_container/content/file_load_section"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_vertical = 4
+disabled = true
+text = "SAVE"
+
+[node name="file_dialog" type="FileDialog" parent="margin_container/content/file_load_section"]
+title = "Open a File"
+initial_position = 2
+size = Vector2i(640, 448)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.mtl ; MTL File")
+
+[node name="materials_container" type="ScrollContainer" parent="margin_container/content"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="material_editor" parent="margin_container/content/materials_container" instance=ExtResource("3_18kwm")]
+layout_mode = 2
+
+[node name="back" type="Button" parent="margin_container/content"]
+custom_minimum_size = Vector2(192, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "BACK"

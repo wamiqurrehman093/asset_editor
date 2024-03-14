@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=3 uid="uid://i7iw36lfwd05"]
+
+[ext_resource type="Theme" uid="uid://dys62uqmu2c03" path="res://resource/theme/basic_theme.tres" id="1_4hpqr"]
+[ext_resource type="Script" path="res://source/main/main.gd" id="1_wypxb"]
+
+[node name="main" type="Control" node_paths=PackedStringArray("mtl_editor_button", "quit_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_4hpqr")
+script = ExtResource("1_wypxb")
+mtl_editor_button = NodePath("margin_container/content/options_container/options/mtl_editor")
+quit_button = NodePath("margin_container/content/options_container/options/quit")
+
+[node name="background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="margin_container" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="content" type="VBoxContainer" parent="margin_container"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin_container/content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "ASSET EDITOR"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="options_container" type="CenterContainer" parent="margin_container/content"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="options" type="GridContainer" parent="margin_container/content/options_container"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="mtl_editor" type="Button" parent="margin_container/content/options_container/options"]
+custom_minimum_size = Vector2(192, 48)
+layout_mode = 2
+text = "MTL EDITOR"
+
+[node name="quit" type="Button" parent="margin_container/content/options_container/options"]
+custom_minimum_size = Vector2(192, 48)
+layout_mode = 2
+text = "QUIT"

@@ -1,0 +1,294 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmgokd71hvu0f"]
+
+[ext_resource type="Script" path="res://source/material_editor/material_editor.gd" id="1_v3xu1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yu6jr"]
+albedo_color = Color(0.482353, 0.760784, 0.917647, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_lkr2s"]
+
+[sub_resource type="Environment" id="Environment_56dlo"]
+background_mode = 1
+background_color = Color(1, 1, 1, 1)
+ambient_light_color = Color(1, 1, 1, 1)
+
+[node name="material_editor" type="HBoxContainer" node_paths=PackedStringArray("material_title", "material_name_input", "defuse_color_r", "defuse_color_g", "defuse_color_b", "defuse_texture", "ambient_color_r", "ambient_color_g", "ambient_color_b", "ambient_texture", "specular_color_r", "specular_color_g", "specular_color_b", "specular_amount", "emission_color_r", "emission_color_g", "emission_color_b", "refraction_density", "opacity", "illumination", "preview_sphere")]
+custom_minimum_size = Vector2(1144, 487)
+size_flags_horizontal = 3
+script = ExtResource("1_v3xu1")
+material_title = NodePath("details/title")
+material_name_input = NodePath("details/properties_container/properties/material_name/input")
+defuse_color_r = NodePath("details/properties_container/properties/defuse_color/input_r")
+defuse_color_g = NodePath("details/properties_container/properties/defuse_color/input_g")
+defuse_color_b = NodePath("details/properties_container/properties/defuse_color/input_b")
+defuse_texture = NodePath("details/properties_container/properties/defuse_texture/input")
+ambient_color_r = NodePath("details/properties_container/properties/ambient_color/input_r")
+ambient_color_g = NodePath("details/properties_container/properties/ambient_color/input_g")
+ambient_color_b = NodePath("details/properties_container/properties/ambient_color/input_b")
+ambient_texture = NodePath("details/properties_container/properties/ambient_texture/input")
+specular_color_r = NodePath("details/properties_container/properties/specular_color/input_r")
+specular_color_g = NodePath("details/properties_container/properties/specular_color/input_g")
+specular_color_b = NodePath("details/properties_container/properties/specular_color/input_b")
+specular_amount = NodePath("details/properties_container/properties/specular_amount/input")
+emission_color_r = NodePath("details/properties_container/properties/emission_color/input_r")
+emission_color_g = NodePath("details/properties_container/properties/emission_color/input_g")
+emission_color_b = NodePath("details/properties_container/properties/emission_color/input_b")
+refraction_density = NodePath("details/properties_container/properties/refraction_density/input")
+opacity = NodePath("details/properties_container/properties/opacity/input")
+illumination = NodePath("details/properties_container/properties/illumination/input")
+preview_sphere = NodePath("preview/preview_viewort_container/preview_viewport/preview_scene/preview_sphere")
+
+[node name="preview" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="preview_viewort_container" type="SubViewportContainer" parent="preview"]
+layout_mode = 2
+
+[node name="preview_viewport" type="SubViewport" parent="preview/preview_viewort_container"]
+handle_input_locally = false
+size = Vector2i(256, 256)
+render_target_update_mode = 4
+
+[node name="preview_scene" type="Node3D" parent="preview/preview_viewort_container/preview_viewport"]
+
+[node name="preview_sphere" type="MeshInstance3D" parent="preview/preview_viewort_container/preview_viewport/preview_scene"]
+material_override = SubResource("StandardMaterial3D_yu6jr")
+mesh = SubResource("SphereMesh_lkr2s")
+
+[node name="preview_camera" type="Camera3D" parent="preview/preview_viewort_container/preview_viewport/preview_scene"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+current = true
+
+[node name="preview_environment" type="WorldEnvironment" parent="preview/preview_viewort_container/preview_viewport/preview_scene"]
+environment = SubResource("Environment_56dlo")
+
+[node name="preview_light" type="DirectionalLight3D" parent="preview/preview_viewort_container/preview_viewport/preview_scene"]
+transform = Transform3D(0.707107, 0, -0.707107, 0.612373, 0.5, 0.612373, 0.353553, -0.866025, 0.353553, 0, 0, 3)
+
+[node name="details" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="title" type="Label" parent="details"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Material Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="properties_container" type="ScrollContainer" parent="details"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="properties" type="VBoxContainer" parent="details/properties_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="material_name" type="HBoxContainer" parent="details/properties_container/properties"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="label" type="Label" parent="details/properties_container/properties/material_name"]
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 2
+text = "Material Name"
+
+[node name="input" type="LineEdit" parent="details/properties_container/properties/material_name"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="defuse_color" type="HBoxContainer" parent="details/properties_container/properties"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="label" type="Label" parent="details/properties_container/properties/defuse_color"]
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 2
+text = "Defuse Color"
+
+[node name="input_r" type="LineEdit" parent="details/properties_container/properties/defuse_color"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="input_g" type="LineEdit" parent="details/properties_container/properties/defuse_color"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="input_b" type="LineEdit" parent="details/properties_container/properties/defuse_color"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="defuse_texture" type="HBoxContainer" parent="details/properties_container/properties"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="label" type="Label" parent="details/properties_container/properties/defuse_texture"]
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 2
+text = "Defuse Texture"
+
+[node name="input" type="LineEdit" parent="details/properties_container/properties/defuse_texture"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="ambient_color" type="HBoxContainer" parent="details/properties_container/properties"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="label" type="Label" parent="details/properties_container/properties/ambient_color"]
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 2
+text = "Ambient Color"
+
+[node name="input_r" type="LineEdit" parent="details/properties_container/properties/ambient_color"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="input_g" type="LineEdit" parent="details/properties_container/properties/ambient_color"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="input_b" type="LineEdit" parent="details/properties_container/properties/ambient_color"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="ambient_texture" type="HBoxContainer" parent="details/properties_container/properties"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="label" type="Label" parent="details/properties_container/properties/ambient_texture"]
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 2
+text = "Ambient Texture"
+
+[node name="input" type="LineEdit" parent="details/properties_container/properties/ambient_texture"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="specular_color" type="HBoxContainer" parent="details/properties_container/properties"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="label" type="Label" parent="details/properties_container/properties/specular_color"]
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 2
+text = "Specular Color"
+
+[node name="input_r" type="LineEdit" parent="details/properties_container/properties/specular_color"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="input_g" type="LineEdit" parent="details/properties_container/properties/specular_color"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="input_b" type="LineEdit" parent="details/properties_container/properties/specular_color"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="specular_amount" type="HBoxContainer" parent="details/properties_container/properties"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="label" type="Label" parent="details/properties_container/properties/specular_amount"]
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 2
+text = "Specular Amount"
+
+[node name="input" type="LineEdit" parent="details/properties_container/properties/specular_amount"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="emission_color" type="HBoxContainer" parent="details/properties_container/properties"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="label" type="Label" parent="details/properties_container/properties/emission_color"]
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 2
+text = "Emission Color"
+
+[node name="input_r" type="LineEdit" parent="details/properties_container/properties/emission_color"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="input_g" type="LineEdit" parent="details/properties_container/properties/emission_color"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="input_b" type="LineEdit" parent="details/properties_container/properties/emission_color"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="refraction_density" type="HBoxContainer" parent="details/properties_container/properties"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="label" type="Label" parent="details/properties_container/properties/refraction_density"]
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 2
+text = "Refraction Density"
+
+[node name="input" type="LineEdit" parent="details/properties_container/properties/refraction_density"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="opacity" type="HBoxContainer" parent="details/properties_container/properties"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="label" type="Label" parent="details/properties_container/properties/opacity"]
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 2
+text = "Opacity"
+
+[node name="input" type="LineEdit" parent="details/properties_container/properties/opacity"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="illumination" type="HBoxContainer" parent="details/properties_container/properties"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="label" type="Label" parent="details/properties_container/properties/illumination"]
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 2
+text = "Illumination"
+
+[node name="input" type="LineEdit" parent="details/properties_container/properties/illumination"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
