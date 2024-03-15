@@ -110,7 +110,9 @@ func create_new_material(material_name: String) -> void:
 
 
 func create_new_material_editor() -> void:
-	mtl_editor.materials_container.add_child(MATERIAL_EDITOR.instantiate())
+	var material_editor: MaterialEditor = MATERIAL_EDITOR.instantiate()
+	mtl_editor.materials_container.add_child(material_editor)
+	material_editor.mtl_editor = mtl_editor
 
 
 func create_new_material_info(material_name: String) -> void:

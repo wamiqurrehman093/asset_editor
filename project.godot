@@ -19,3 +19,4 @@ config/icon="res://icon.svg"
 
 MtlLoadHandler="*res://source/mtl_editor/mtl_load_handler.gd"
 MtlSaveHandler="*res://source/mtl_editor/mtl_save_handler.gd"
+FileHandling="*res://source/utilities/file_handling.gd"

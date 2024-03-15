@@ -26,6 +26,7 @@ class_name MaterialEditor extends HBoxContainer
 
 
 var preview_material: StandardMaterial3D
+var mtl_editor: MtlEditor
 
 
 func _ready() -> void:
@@ -67,12 +68,16 @@ func load_defuse_texture(defuse_texture: String) -> void:
 	if defuse_texture.is_empty():
 		return
 	self.defuse_texture.text = defuse_texture
-	if FileAccess.file_exists(defuse_texture):
-		preview_material.set("albedo_texture", load(defuse_texture))
+	var defuse_texture_path: String = FileHandling.get_directory_from_file_path(mtl_editor.path_line_edit.text) + "/" + defuse_texture
+	if FileAccess.file_exists(defuse_texture_path):
+		var image = Image.load_from_file(defuse_texture_path)
+		var texture = ImageTexture.create_from_image(image)
+		preview_material.set("albedo_texture", texture)
 		console_window.log_statement("Loaded defuse texture.")
 	else:
 		console_window.log_error("Error loading defuse texture:")
 		console_window.log_error("-> Defuse texture file doesn't exist!")
+		console_window.log_error("-> Defuse texture path = %s" % defuse_texture_path)
 
 
 func load_ambient_color(ambient_color: Dictionary) -> void:
@@ -86,8 +91,11 @@ func load_ambient_texture(ambient_texture: String) -> void:
 	if ambient_texture.is_empty():
 		return
 	self.ambient_texture.text = ambient_texture
-	if FileAccess.file_exists(ambient_texture):
-		preview_material.set("ao_texture", load(ambient_texture))
+	var ambient_texture_path: String = FileHandling.get_directory_from_file_path(mtl_editor.path_line_edit.text) + "/" + ambient_texture
+	if FileAccess.file_exists(ambient_texture_path):
+		var image = Image.load_from_file(ambient_texture_path)
+		var texture = ImageTexture.create_from_image(image)
+		preview_material.set("ao_texture", texture)
 		console_window.log_statement("Loaded ambient texture.")
 	else:
 		console_window.log_error("Error loading ambient texture:")
