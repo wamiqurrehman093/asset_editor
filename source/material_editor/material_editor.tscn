@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cmgokd71hvu0f"]
+[gd_scene load_steps=6 format=3 uid="uid://cmgokd71hvu0f"]
 
 [ext_resource type="Script" path="res://source/material_editor/material_editor.gd" id="1_v3xu1"]
+[ext_resource type="PackedScene" uid="uid://hboe8tcv0is5" path="res://source/console_window/console_window.tscn" id="2_ggl0u"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yu6jr"]
 albedo_color = Color(0.482353, 0.760784, 0.917647, 1)
+ao_enabled = true
 
 [sub_resource type="SphereMesh" id="SphereMesh_lkr2s"]
 
@@ -12,8 +14,8 @@ background_mode = 1
 background_color = Color(1, 1, 1, 1)
 ambient_light_color = Color(1, 1, 1, 1)
 
-[node name="material_editor" type="HBoxContainer" node_paths=PackedStringArray("material_title", "material_name_input", "defuse_color_r", "defuse_color_g", "defuse_color_b", "defuse_texture", "ambient_color_r", "ambient_color_g", "ambient_color_b", "ambient_texture", "specular_color_r", "specular_color_g", "specular_color_b", "specular_amount", "emission_color_r", "emission_color_g", "emission_color_b", "refraction_density", "opacity", "illumination", "preview_sphere")]
-custom_minimum_size = Vector2(1144, 487)
+[node name="material_editor" type="HBoxContainer" node_paths=PackedStringArray("material_title", "material_name_input", "defuse_color_r", "defuse_color_g", "defuse_color_b", "defuse_texture", "ambient_color_r", "ambient_color_g", "ambient_color_b", "ambient_texture", "specular_color_r", "specular_color_g", "specular_color_b", "specular_amount", "emission_color_r", "emission_color_g", "emission_color_b", "refraction_density", "opacity", "illumination", "preview_sphere", "console_button", "console_window")]
+custom_minimum_size = Vector2(1144, 532)
 size_flags_horizontal = 3
 script = ExtResource("1_v3xu1")
 material_title = NodePath("details/title")
@@ -37,6 +39,8 @@ refraction_density = NodePath("details/properties_container/properties/refractio
 opacity = NodePath("details/properties_container/properties/opacity/input")
 illumination = NodePath("details/properties_container/properties/illumination/input")
 preview_sphere = NodePath("preview/preview_viewort_container/preview_viewport/preview_scene/preview_sphere")
+console_button = NodePath("details/console_button")
+console_window = NodePath("console_window")
 
 [node name="preview" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(256, 0)
@@ -74,6 +78,7 @@ alignment = 1
 
 [node name="title" type="Label" parent="details"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
 text = "Material Name"
 horizontal_alignment = 1
@@ -89,7 +94,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="material_name" type="HBoxContainer" parent="details/properties_container/properties"]
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -104,7 +109,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 
 [node name="defuse_color" type="HBoxContainer" parent="details/properties_container/properties"]
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -129,7 +134,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 
 [node name="defuse_texture" type="HBoxContainer" parent="details/properties_container/properties"]
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -144,7 +149,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 
 [node name="ambient_color" type="HBoxContainer" parent="details/properties_container/properties"]
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -169,7 +174,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 
 [node name="ambient_texture" type="HBoxContainer" parent="details/properties_container/properties"]
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -184,7 +189,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 
 [node name="specular_color" type="HBoxContainer" parent="details/properties_container/properties"]
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -209,7 +214,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 
 [node name="specular_amount" type="HBoxContainer" parent="details/properties_container/properties"]
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -224,7 +229,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 
 [node name="emission_color" type="HBoxContainer" parent="details/properties_container/properties"]
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -249,7 +254,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 
 [node name="refraction_density" type="HBoxContainer" parent="details/properties_container/properties"]
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -264,7 +269,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 
 [node name="opacity" type="HBoxContainer" parent="details/properties_container/properties"]
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -279,7 +284,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 
 [node name="illumination" type="HBoxContainer" parent="details/properties_container/properties"]
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -292,3 +297,12 @@ text = "Illumination"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+
+[node name="console_button" type="Button" parent="details"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "CONSOLE"
+
+[node name="console_window" parent="." instance=ExtResource("2_ggl0u")]

@@ -69,6 +69,11 @@ func _on_load_button_pressed() -> void:
 			load_material_info_for_material_editor()
 
 
+func get_file_content(file_path: String) -> String:
+	var file: FileAccess = FileAccess.open(file_path, FileAccess.READ)
+	return file.get_as_text()
+
+
 func load_content_line(content_line: String) -> void:
 	if content_line.begins_with("Kd "):
 		set_defuse_color_in_material_info(content_line)
@@ -90,11 +95,6 @@ func load_content_line(content_line: String) -> void:
 		set_opacity_in_material_info(content_line)
 	if content_line.begins_with("illum "):
 		set_illumination_in_material_info(content_line)
-
-
-func get_file_content(file_path: String) -> String:
-	var file: FileAccess = FileAccess.open(file_path, FileAccess.READ)
-	return file.get_as_text()
 
 
 func load_material_info_for_material_editor() -> void:

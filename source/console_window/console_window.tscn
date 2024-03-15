@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3 uid="uid://hboe8tcv0is5"]
+
+[ext_resource type="Theme" uid="uid://dys62uqmu2c03" path="res://resource/theme/basic_theme.tres" id="1_2wp0v"]
+[ext_resource type="Script" path="res://source/console_window/console_window.gd" id="1_6nti3"]
+
+[node name="console_window" type="Window" node_paths=PackedStringArray("logs", "command_input", "command_submit")]
+title = "CONSOLE"
+initial_position = 2
+size = Vector2i(768, 512)
+visible = false
+exclusive = true
+content_scale_mode = 1
+content_scale_aspect = 1
+script = ExtResource("1_6nti3")
+logs = NodePath("console/content_container/content/logs_container/logs")
+command_input = NodePath("console/content_container/content/command_writer/input")
+command_submit = NodePath("console/content_container/content/command_writer/submit")
+
+[node name="console" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="background" type="ColorRect" parent="console"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="content_container" type="MarginContainer" parent="console"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_2wp0v")
+
+[node name="content" type="VBoxContainer" parent="console/content_container"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+
+[node name="logs_container" type="ScrollContainer" parent="console/content_container/content"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="logs" type="VBoxContainer" parent="console/content_container/content/logs_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="command_writer" type="HBoxContainer" parent="console/content_container/content"]
+layout_mode = 2
+
+[node name="input" type="LineEdit" parent="console/content_container/content/command_writer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+placeholder_text = "Write your commands here..."
+
+[node name="submit" type="Button" parent="console/content_container/content/command_writer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_vertical = 4
+text = "ENTER"

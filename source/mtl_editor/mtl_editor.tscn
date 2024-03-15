@@ -16,7 +16,7 @@ path_line_edit = NodePath("margin_container/content/file_load_section/path")
 browse_button = NodePath("margin_container/content/file_load_section/browse")
 load_button = NodePath("margin_container/content/file_load_section/load")
 file_dialog = NodePath("margin_container/content/file_load_section/file_dialog")
-back_button = NodePath("margin_container/content/back")
+back_button = NodePath("margin_container/content/header/back")
 materials_container = NodePath("margin_container/content/materials_container/materials")
 
 [node name="background" type="ColorRect" parent="."]
@@ -38,8 +38,19 @@ grow_vertical = 2
 [node name="content" type="VBoxContainer" parent="margin_container"]
 layout_mode = 2
 
-[node name="title" type="Label" parent="margin_container/content"]
+[node name="header" type="HBoxContainer" parent="margin_container/content"]
 layout_mode = 2
+
+[node name="back" type="Button" parent="margin_container/content/header"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "<"
+
+[node name="title" type="Label" parent="margin_container/content/header"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 32
 text = "MTL EDITOR"
 horizontal_alignment = 1
@@ -94,9 +105,3 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="back" type="Button" parent="margin_container/content"]
-custom_minimum_size = Vector2(192, 48)
-layout_mode = 2
-size_flags_horizontal = 4
-text = "BACK"

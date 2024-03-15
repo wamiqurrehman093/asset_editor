@@ -22,6 +22,8 @@ class_name MaterialEditor extends HBoxContainer
 @export var opacity: LineEdit
 @export var illumination: LineEdit
 @export var preview_sphere: MeshInstance3D
+@export var console_button: Button
+@export var console_window: ConsoleWindow
 
 
 var preview_material: StandardMaterial3D
@@ -29,6 +31,7 @@ var preview_material: StandardMaterial3D
 
 func _ready() -> void:
 	preview_material = preview_sphere.material_override
+	console_button.pressed.connect(console_window.popup)
 
 
 func load_material(material_info: Dictionary):
@@ -48,6 +51,7 @@ func load_material(material_info: Dictionary):
 func set_material_name(material_name: String) -> void:
 	self.material_title.text = material_name
 	self.material_name_input.text = material_name
+	console_window.log_statement("Loading material [%s]." % material_name)
 
 
 func load_defuse_color(defuse_color: Dictionary) -> void:
@@ -58,24 +62,34 @@ func load_defuse_color(defuse_color: Dictionary) -> void:
 		"albedo_color",
 		Color(float(defuse_color.r), float(defuse_color.g), float(defuse_color.b))
 	)
+	console_window.log_statement("Loaded defuse color.")
 
 
 func load_defuse_texture(defuse_texture: String) -> void:
 	self.defuse_texture.text = defuse_texture
 	if FileAccess.file_exists(defuse_texture):
 		preview_material.set("albedo_texture", load(defuse_texture))
+		console_window.log_statement("Loaded defuse texture.")
 	else:
-		print("defuse texture file doesn't exist!")
+		console_window.log_error("Error loading defuse texture:")
+		console_window.log_error("-> Defuse texture file doesn't exist!")
 
 
 func load_ambient_color(ambient_color: Dictionary) -> void:
 	self.ambient_color_r.text = ambient_color.r
 	self.ambient_color_g.text = ambient_color.g
 	self.ambient_color_b.text = ambient_color.b
+	console_window.log_statement("Loaded ambient color.")
 
 
 func load_ambient_texture(ambient_texture: String) -> void:
 	self.ambient_texture.text = ambient_texture
+	if FileAccess.file_exists(ambient_texture):
+		preview_material.set("ao_texture", load(ambient_texture))
+		console_window.log_statement("Loaded ambient texture.")
+	else:
+		console_window.log_error("Error loading ambient texture:")
+		console_window.log_error("-> Ambient texture file doesn't exist!")
 
 
 func load_specular_color(specular_color: Dictionary) -> void:
