@@ -14,3 +14,7 @@ config/name="Asset Editor"
 run/main_scene="res://source/main/main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+MtlLoadHandler="*res://source/mtl_editor/mtl_load_handler.gd"
