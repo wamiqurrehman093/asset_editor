@@ -7,6 +7,7 @@
 title = "CONSOLE"
 initial_position = 2
 size = Vector2i(768, 512)
+visible = false
 exclusive = true
 unresizable = true
 content_scale_mode = 1

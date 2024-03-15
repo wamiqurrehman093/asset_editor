@@ -10,6 +10,7 @@ signal command_submitted
 
 
 func _ready() -> void:
+	hide()
 	close_requested.connect(hide)
 	command_submit.pressed.connect(_on_command_submitted)
 	command_input.text_submitted.connect(_on_command_submitted)
