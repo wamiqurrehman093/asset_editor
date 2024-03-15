@@ -13,6 +13,7 @@ class_name MtlEditor extends Control
 
 func _ready() -> void:
 	MtlLoadHandler.mtl_editor = self
+	MtlLoadHandler.load_from_cache()
 	browse_button.pressed.connect(file_dialog.popup)
 	load_button.pressed.connect(MtlLoadHandler.load_mtl_file)
 	save_button.pressed.connect(MtlSaveHandler.save_mtl_file)

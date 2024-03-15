@@ -35,16 +35,38 @@ var material_info_template: Dictionary = {
 	"illumination": ""
 }
 var material_info: Dictionary = {}
+var material_info_cache_list: Array = []
+var mtl_file_path: String = ""
+
+
+func load_from_cache() -> void:
+	for material_info_cache: Dictionary in material_info_cache_list:
+		create_new_material_editor()
+		load_material_info_for_material_editor_from(material_info_cache)
+	if mtl_editor.materials_container.get_child_count() > 0:
+		mtl_editor.save_button.disabled = false
+		mtl_editor.close_button.disabled = false
+		mtl_editor.path_line_edit.text = mtl_file_path
+		mtl_editor.file_dialog.current_path = mtl_file_path
+
+
+func load_material_info_for_material_editor_from(material_info_cache: Dictionary) -> void:
+	mtl_editor.materials_container.get_child(
+		mtl_editor.materials_container.get_child_count() - 1
+	).load_material(material_info_cache)
 
 
 func load_mtl_file() -> void:
 	if mtl_editor.path_line_edit.text.is_absolute_path() or mtl_editor.path_line_edit.text.is_relative_path():
 		clear_previous_file()
 		load_new_file()
+		mtl_file_path = mtl_editor.path_line_edit.text
 
 
 func clear_previous_file() -> void:
 	material_info = {}
+	material_info_cache_list = []
+	mtl_file_path = ""
 	for material_editor: MaterialEditor in mtl_editor.materials_container.get_children():
 		material_editor.queue_free()
 
@@ -79,6 +101,7 @@ func load_material_info_for_material_editor() -> void:
 	mtl_editor.materials_container.get_child(
 		mtl_editor.materials_container.get_child_count() - 1
 	).load_material(material_info)
+	material_info_cache_list.append(material_info.duplicate(true))
 
 
 func create_new_material(material_name: String) -> void:
