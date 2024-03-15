@@ -1,10 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bq0gmbfvnqoli"]
+[gd_scene load_steps=3 format=3 uid="uid://bq0gmbfvnqoli"]
 
 [ext_resource type="Theme" uid="uid://dys62uqmu2c03" path="res://resource/theme/basic_theme.tres" id="1_gdwxn"]
 [ext_resource type="Script" path="res://source/mtl_editor/mtl_editor.gd" id="2_130ew"]
-[ext_resource type="PackedScene" uid="uid://cmgokd71hvu0f" path="res://source/material_editor/material_editor.tscn" id="3_18kwm"]
 
-[node name="mtl_editor" type="Control" node_paths=PackedStringArray("path_line_edit", "browse_button", "load_button", "file_dialog", "back_button")]
+[node name="mtl_editor" type="Control" node_paths=PackedStringArray("path_line_edit", "browse_button", "load_button", "file_dialog", "back_button", "materials_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,6 +17,7 @@ browse_button = NodePath("margin_container/content/file_load_section/browse")
 load_button = NodePath("margin_container/content/file_load_section/load")
 file_dialog = NodePath("margin_container/content/file_load_section/file_dialog")
 back_button = NodePath("margin_container/content/back")
+materials_container = NodePath("margin_container/content/materials_container/materials")
 
 [node name="background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -90,8 +90,10 @@ filters = PackedStringArray("*.mtl ; MTL File")
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="material_editor" parent="margin_container/content/materials_container" instance=ExtResource("3_18kwm")]
+[node name="materials" type="VBoxContainer" parent="margin_container/content/materials_container"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="back" type="Button" parent="margin_container/content"]
 custom_minimum_size = Vector2(192, 48)

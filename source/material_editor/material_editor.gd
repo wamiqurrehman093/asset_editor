@@ -24,6 +24,13 @@ class_name MaterialEditor extends HBoxContainer
 @export var preview_sphere: MeshInstance3D
 
 
+var preview_material: StandardMaterial3D
+
+
+func _ready() -> void:
+	preview_material = preview_sphere.material_override
+
+
 func load_material(material_info: Dictionary):
 	set_material_name(material_info.name)
 	load_defuse_color(material_info.defuse_color)
@@ -47,10 +54,18 @@ func load_defuse_color(defuse_color: Dictionary) -> void:
 	self.defuse_color_r.text = defuse_color.r
 	self.defuse_color_g.text = defuse_color.g
 	self.defuse_color_b.text = defuse_color.b
+	preview_material.set(
+		"albedo_color",
+		Color(float(defuse_color.r), float(defuse_color.g), float(defuse_color.b))
+	)
 
 
 func load_defuse_texture(defuse_texture: String) -> void:
 	self.defuse_texture.text = defuse_texture
+	if FileAccess.file_exists(defuse_texture):
+		preview_material.set("albedo_texture", load(defuse_texture))
+	else:
+		print("defuse texture file doesn't exist!")
 
 
 func load_ambient_color(ambient_color: Dictionary) -> void:
