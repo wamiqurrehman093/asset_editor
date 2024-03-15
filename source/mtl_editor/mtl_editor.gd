@@ -15,14 +15,10 @@ func _ready() -> void:
 	MtlLoadHandler.mtl_editor = self
 	browse_button.pressed.connect(file_dialog.popup)
 	load_button.pressed.connect(MtlLoadHandler.load_mtl_file)
-	save_button.pressed.connect(_on_save_button_pressed)
+	save_button.pressed.connect(MtlSaveHandler.save_mtl_file)
 	close_button.pressed.connect(_on_close_button_pressed)
 	file_dialog.file_selected.connect(path_line_edit.set_text)
 	back_button.pressed.connect(get_tree().change_scene_to_file.bind("res://source/main/main.tscn"))
-
-
-func _on_save_button_pressed() -> void:
-	pass
 
 
 func _on_close_button_pressed() -> void:
