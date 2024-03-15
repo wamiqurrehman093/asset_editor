@@ -14,7 +14,7 @@ const MATERIAL_EDITOR = preload("res://source/material_editor/material_editor.ts
 @export var materials_container: VBoxContainer
 
 
-var material_info: Dictionary = {
+var material_info_template: Dictionary = {
 	"name": "",
 	"defuse_color": {
 		"r": "",
@@ -43,9 +43,7 @@ var material_info: Dictionary = {
 	"opacity": "",
 	"illumination": ""
 }
-var material_infos: Array = []
-var material_editors: Array = []
-var material_index: int = -1
+var material_info: Dictionary = {}
 
 
 func _ready() -> void:
@@ -64,9 +62,7 @@ func _on_load_button_pressed() -> void:
 
 
 func clear_previous_file() -> void:
-	material_infos = []
-	material_editors = []
-	material_index = -1
+	material_info = {}
 	for material_editor: MaterialEditor in materials_container.get_children():
 		material_editor.queue_free()
 
@@ -76,11 +72,11 @@ func load_new_file() -> void:
 		if content_line.is_empty() or content_line.begins_with("#"):
 			continue
 		if content_line.begins_with("newmtl "):
-			if material_index >= 0:
+			if materials_container.get_child_count() > 0:
 				load_material_info_for_material_editor()
 			create_new_material(content_line.split(" ")[1])
 		load_content_line(content_line)
-	if material_index >= 0:
+	if materials_container.get_child_count() > 0:
 		load_material_info_for_material_editor()
 		save_button.disabled = false
 		close_button.disabled = false
@@ -121,73 +117,71 @@ func load_content_line(content_line: String) -> void:
 
 
 func load_material_info_for_material_editor() -> void:
-	material_editors[material_index].load_material(
-		material_infos[material_index]
-	)
+	materials_container.get_child(
+		materials_container.get_child_count() - 1
+	).load_material(material_info)
 
 
 func create_new_material(material_name: String) -> void:
-	material_index += 1
 	create_new_material_editor()
 	create_new_material_info(material_name)
 
 
 func create_new_material_editor() -> void:
-	material_editors.append(MATERIAL_EDITOR.instantiate())
-	materials_container.add_child(material_editors[material_index])
+	materials_container.add_child(MATERIAL_EDITOR.instantiate())
 
 
 func create_new_material_info(material_name: String) -> void:
-	material_infos.append(material_info.duplicate(true))
-	material_infos[material_index].name = material_name
+	material_info = material_info_template.duplicate(true)
+	material_info.name = material_name
 
 
 func set_defuse_color_in_material_info(defuse_color_line: String) -> void:
-	material_infos[material_index].defuse_color.r = defuse_color_line.split(" ")[1]
-	material_infos[material_index].defuse_color.g = defuse_color_line.split(" ")[2]
-	material_infos[material_index].defuse_color.b = defuse_color_line.split(" ")[3]
+	material_info.defuse_color.r = defuse_color_line.split(" ")[1]
+	material_info.defuse_color.g = defuse_color_line.split(" ")[2]
+	material_info.defuse_color.b = defuse_color_line.split(" ")[3]
 
 
 func set_defuse_texture_in_material_info(defuse_texture_line: String) -> void:
-	material_infos[material_index].defuse_texture = defuse_texture_line.split("map_Kd ")[1]
+	material_info.defuse_texture = defuse_texture_line.split("map_Kd ")[1]
 
 
 func set_ambient_color_in_material_info(ambient_color_line: String) -> void:
-	material_infos[material_index].ambient_color.r = ambient_color_line.split(" ")[1]
-	material_infos[material_index].ambient_color.g = ambient_color_line.split(" ")[2]
-	material_infos[material_index].ambient_color.b = ambient_color_line.split(" ")[3]
+	material_info.ambient_color.r = ambient_color_line.split(" ")[1]
+	material_info.ambient_color.g = ambient_color_line.split(" ")[2]
+	material_info.ambient_color.b = ambient_color_line.split(" ")[3]
 
 
 func set_ambient_texture_in_material_info(ambient_texture_line: String) -> void:
-	material_infos[material_index].ambient_texture = ambient_texture_line.split("map_Ka ")[1]
+	material_info.ambient_texture = ambient_texture_line.split("map_Ka ")[1]
 
 
 func set_specular_color_in_material_info(specular_color_line: String) -> void:
-	material_infos[material_index].specular_color.r = specular_color_line.split(" ")[1]
-	material_infos[material_index].specular_color.g = specular_color_line.split(" ")[2]
-	material_infos[material_index].specular_color.b = specular_color_line.split(" ")[3]
+	material_info.specular_color.r = specular_color_line.split(" ")[1]
+	material_info.specular_color.g = specular_color_line.split(" ")[2]
+	material_info.specular_color.b = specular_color_line.split(" ")[3]
 
 
 func set_specular_amount_in_material_info(specular_amount_line: String) -> void:
-	material_infos[material_index].specular_amount = specular_amount_line.split(" ")[1]
+	material_info.specular_amount = specular_amount_line.split(" ")[1]
 
 
 func set_emission_color_in_material_info(emission_color_line: String) -> void:
-	material_infos[material_index].emission_color.r = emission_color_line.split(" ")[1]
-	material_infos[material_index].emission_color.g = emission_color_line.split(" ")[2]
-	material_infos[material_index].emission_color.b = emission_color_line.split(" ")[3]
+	material_info.emission_color.r = emission_color_line.split(" ")[1]
+	material_info.emission_color.g = emission_color_line.split(" ")[2]
+	material_info.emission_color.b = emission_color_line.split(" ")[3]
 
 
 func set_refraction_density_in_material_info(refraction_density_line: String) -> void:
-	material_infos[material_index].refraction_density = refraction_density_line.split(" ")[1]
+	material_info.refraction_density = refraction_density_line.split(" ")[1]
 
 
 func set_opacity_in_material_info(opacity_line: String) -> void:
-	material_infos[material_index].opacity = opacity_line.split(" ")[1]
+	material_info.opacity = opacity_line.split(" ")[1]
 
 
 func set_illumination_in_material_info(illumination_line: String) -> void:
-	material_infos[material_index].illumination = illumination_line.split(" ")[1]
+	material_info.illumination = illumination_line.split(" ")[1]
 
 
 func _on_save_button_pressed() -> void:
