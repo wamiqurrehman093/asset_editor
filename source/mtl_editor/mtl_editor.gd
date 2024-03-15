@@ -55,19 +55,35 @@ func _ready() -> void:
 
 func _on_load_button_pressed() -> void:
 	if path_line_edit.text.is_absolute_path() or path_line_edit.text.is_relative_path():
-		var content: String = get_file_content(path_line_edit.text)
-		var content_lines: PackedStringArray = content.split("\n")
-		for content_line: String in content_lines:
-			if content_line.is_empty() or content_line.begins_with("#"):
-				continue
-			if content_line.begins_with("newmtl "):
-				if material_index >= 0:
-					load_material_info_for_material_editor()
-				create_new_material(content_line.split(" ")[1])
-			load_content_line(content_line)
-		if material_index >= 0:
-			load_material_info_for_material_editor()
+		clear_previous_file()
+		load_new_file()
 
+
+func clear_previous_file() -> void:
+	material_infos = []
+	material_editors = []
+	material_index = -1
+	for material_editor: MaterialEditor in materials_container.get_children():
+		material_editor.queue_free()
+
+
+func load_new_file() -> void:
+	for content_line: String in get_file_content_lines():
+		if content_line.is_empty() or content_line.begins_with("#"):
+			continue
+		if content_line.begins_with("newmtl "):
+			if material_index >= 0:
+				load_material_info_for_material_editor()
+			create_new_material(content_line.split(" ")[1])
+		load_content_line(content_line)
+	if material_index >= 0:
+		load_material_info_for_material_editor()
+
+
+func get_file_content_lines() -> PackedStringArray:
+	var content: String = get_file_content(path_line_edit.text)
+	var content_lines: PackedStringArray = content.split("\n")
+	return content_lines
 
 func get_file_content(file_path: String) -> String:
 	var file: FileAccess = FileAccess.open(file_path, FileAccess.READ)

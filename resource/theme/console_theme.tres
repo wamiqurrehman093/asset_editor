@@ -1,0 +1,9 @@
+[gd_resource type="Theme" format=3 uid="uid://lkfi2kksbiwi"]
+
+[resource]
+Label/colors/font_color = Color(0, 0, 0, 1)
+MarginContainer/constants/margin_bottom = 4
+MarginContainer/constants/margin_left = 4
+MarginContainer/constants/margin_right = 4
+MarginContainer/constants/margin_top = 4
+VBoxContainer/constants/separation = 4

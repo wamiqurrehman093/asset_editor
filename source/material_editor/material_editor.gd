@@ -96,25 +96,31 @@ func load_specular_color(specular_color: Dictionary) -> void:
 	self.specular_color_r.text = specular_color.r
 	self.specular_color_g.text = specular_color.g
 	self.specular_color_b.text = specular_color.b
+	console_window.log_statement("Loaded specular color.")
 
 
 func load_specular_amount(specular_amount: String) -> void:
 	self.specular_amount.text = specular_amount
+	console_window.log_statement("Loaded specular amount.")
 
 
 func load_emission_color(emission_color: Dictionary) -> void:
 	self.emission_color_r.text = emission_color.r
 	self.emission_color_g.text = emission_color.g
 	self.emission_color_b.text = emission_color.b
+	console_window.log_statement("Loaded emission color.")
 
 
 func load_refraction_density(refraction_density: String) -> void:
 	self.refraction_density.text = refraction_density
+	console_window.log_statement("Loaded refraction density.")
 
 
 func load_opacity(opacity: String) -> void:
 	self.opacity.text = opacity
+	console_window.log_statement("Loaded opacity.")
 
 
 func load_illumination(illumination: String) -> void:
 	self.illumination.text = illumination
+	console_window.log_statement("Loaded illumination.")
