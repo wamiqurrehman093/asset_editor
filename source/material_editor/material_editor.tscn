@@ -22,12 +22,11 @@ albedo_color = Color(0.764706, 0.886275, 0.647059, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_f88e3"]
 size = Vector3(4, 0.1, 2)
 
-[node name="material_editor" type="HBoxContainer" node_paths=PackedStringArray("material_title", "material_name_input", "defuse_color_r", "defuse_color_g", "defuse_color_b", "defuse_texture", "ambient_color_r", "ambient_color_g", "ambient_color_b", "ambient_texture", "specular_color_r", "specular_color_g", "specular_color_b", "specular_amount", "emission_color_r", "emission_color_g", "emission_color_b", "refraction_density", "opacity", "illumination", "preview_sphere", "console_button", "console_window")]
+[node name="material_editor" type="HBoxContainer" node_paths=PackedStringArray("material_name_input", "defuse_color_r", "defuse_color_g", "defuse_color_b", "defuse_texture", "ambient_color_r", "ambient_color_g", "ambient_color_b", "ambient_texture", "specular_color_r", "specular_color_g", "specular_color_b", "specular_amount", "emission_color_r", "emission_color_g", "emission_color_b", "refraction_density", "opacity", "illumination", "preview_sphere", "console_button", "console_window")]
 custom_minimum_size = Vector2(1144, 532)
 size_flags_horizontal = 3
 theme_override_constants/separation = 16
 script = ExtResource("1_v3xu1")
-material_title = NodePath("details/title")
 material_name_input = NodePath("details/properties_container/properties/material_name/input")
 defuse_color_r = NodePath("details/properties_container/properties/defuse_color/input_r")
 defuse_color_g = NodePath("details/properties_container/properties/defuse_color/input_g")
@@ -57,6 +56,7 @@ layout_mode = 2
 
 [node name="label" type="Label" parent="preview"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "PREVIEW"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -101,7 +101,7 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
-text = "Material Name"
+text = "PROPERTIES"
 horizontal_alignment = 1
 vertical_alignment = 1
 

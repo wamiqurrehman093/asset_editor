@@ -7,6 +7,8 @@ const MATERIAL_EDITOR = preload("res://source/material_editor/material_editor.ts
 @export var path_line_edit: LineEdit
 @export var browse_button: Button
 @export var load_button: Button
+@export var save_button: Button
+@export var close_button: Button
 @export var file_dialog: FileDialog
 @export var back_button: Button
 @export var materials_container: VBoxContainer
@@ -49,6 +51,8 @@ var material_index: int = -1
 func _ready() -> void:
 	browse_button.pressed.connect(file_dialog.popup)
 	load_button.pressed.connect(_on_load_button_pressed)
+	save_button.pressed.connect(_on_save_button_pressed)
+	close_button.pressed.connect(_on_close_button_pressed)
 	file_dialog.file_selected.connect(path_line_edit.set_text)
 	back_button.pressed.connect(get_tree().change_scene_to_file.bind("res://source/main/main.tscn"))
 
@@ -78,12 +82,15 @@ func load_new_file() -> void:
 		load_content_line(content_line)
 	if material_index >= 0:
 		load_material_info_for_material_editor()
+		save_button.disabled = false
+		close_button.disabled = false
 
 
 func get_file_content_lines() -> PackedStringArray:
 	var content: String = get_file_content(path_line_edit.text)
 	var content_lines: PackedStringArray = content.split("\n")
 	return content_lines
+
 
 func get_file_content(file_path: String) -> String:
 	var file: FileAccess = FileAccess.open(file_path, FileAccess.READ)
@@ -181,3 +188,14 @@ func set_opacity_in_material_info(opacity_line: String) -> void:
 
 func set_illumination_in_material_info(illumination_line: String) -> void:
 	material_infos[material_index].illumination = illumination_line.split(" ")[1]
+
+
+func _on_save_button_pressed() -> void:
+	pass
+
+
+func _on_close_button_pressed() -> void:
+	clear_previous_file()
+	path_line_edit.text = ""
+	close_button.disabled = true
+	save_button.disabled = true

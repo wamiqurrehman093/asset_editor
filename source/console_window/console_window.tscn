@@ -3,19 +3,18 @@
 [ext_resource type="Script" path="res://source/console_window/console_window.gd" id="1_6nti3"]
 [ext_resource type="Theme" uid="uid://lkfi2kksbiwi" path="res://resource/theme/console_theme.tres" id="2_43ga6"]
 
-[node name="console_window" type="Window" node_paths=PackedStringArray("logs", "command_input", "command_submit")]
+[node name="console_window" type="Window" node_paths=PackedStringArray("command_input", "command_submit", "logs")]
 title = "CONSOLE"
 initial_position = 2
 size = Vector2i(768, 512)
-visible = false
 exclusive = true
 unresizable = true
 content_scale_mode = 1
 content_scale_aspect = 1
 script = ExtResource("1_6nti3")
-logs = NodePath("console/content_container/content/logs_container/logs")
 command_input = NodePath("console/content_container/content/command_writer/input")
 command_submit = NodePath("console/content_container/content/command_writer/submit")
+logs = NodePath("console/content_container/content/logs")
 
 [node name="console" type="Control" parent="."]
 layout_mode = 3
@@ -47,14 +46,12 @@ size_flags_vertical = 3
 custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 
-[node name="logs_container" type="ScrollContainer" parent="console/content_container/content"]
+[node name="logs" type="RichTextLabel" parent="console/content_container/content"]
 layout_mode = 2
 size_flags_vertical = 3
-
-[node name="logs" type="VBoxContainer" parent="console/content_container/content/logs_container"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+focus_mode = 2
+bbcode_enabled = true
+selection_enabled = true
 
 [node name="command_writer" type="HBoxContainer" parent="console/content_container/content"]
 layout_mode = 2

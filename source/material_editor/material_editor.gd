@@ -1,7 +1,6 @@
 class_name MaterialEditor extends HBoxContainer
 
 
-@export var material_title: Label
 @export var material_name_input: LineEdit
 @export var defuse_color_r: LineEdit
 @export var defuse_color_g: LineEdit
@@ -49,7 +48,6 @@ func load_material(material_info: Dictionary):
 
 
 func set_material_name(material_name: String) -> void:
-	self.material_title.text = material_name
 	self.material_name_input.text = material_name
 	console_window.log_statement("Loading material [%s]." % material_name)
 
@@ -66,6 +64,8 @@ func load_defuse_color(defuse_color: Dictionary) -> void:
 
 
 func load_defuse_texture(defuse_texture: String) -> void:
+	if defuse_texture.is_empty():
+		return
 	self.defuse_texture.text = defuse_texture
 	if FileAccess.file_exists(defuse_texture):
 		preview_material.set("albedo_texture", load(defuse_texture))
@@ -83,6 +83,8 @@ func load_ambient_color(ambient_color: Dictionary) -> void:
 
 
 func load_ambient_texture(ambient_texture: String) -> void:
+	if ambient_texture.is_empty():
+		return
 	self.ambient_texture.text = ambient_texture
 	if FileAccess.file_exists(ambient_texture):
 		preview_material.set("ao_texture", load(ambient_texture))

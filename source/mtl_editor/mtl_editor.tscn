@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://dys62uqmu2c03" path="res://resource/theme/basic_theme.tres" id="1_gdwxn"]
 [ext_resource type="Script" path="res://source/mtl_editor/mtl_editor.gd" id="2_130ew"]
 
-[node name="mtl_editor" type="Control" node_paths=PackedStringArray("path_line_edit", "browse_button", "load_button", "file_dialog", "back_button", "materials_container")]
+[node name="mtl_editor" type="Control" node_paths=PackedStringArray("path_line_edit", "browse_button", "load_button", "save_button", "close_button", "file_dialog", "back_button", "materials_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,6 +15,8 @@ script = ExtResource("2_130ew")
 path_line_edit = NodePath("margin_container/content/file_load_section/path")
 browse_button = NodePath("margin_container/content/file_load_section/browse")
 load_button = NodePath("margin_container/content/file_load_section/load")
+save_button = NodePath("margin_container/content/file_load_section/save")
+close_button = NodePath("margin_container/content/file_load_section/close")
 file_dialog = NodePath("margin_container/content/file_load_section/file_dialog")
 back_button = NodePath("margin_container/content/header/back")
 materials_container = NodePath("margin_container/content/materials_container/materials")
@@ -87,6 +89,13 @@ layout_mode = 2
 size_flags_vertical = 4
 disabled = true
 text = "SAVE"
+
+[node name="close" type="Button" parent="margin_container/content/file_load_section"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_vertical = 4
+disabled = true
+text = "CLOSE"
 
 [node name="file_dialog" type="FileDialog" parent="margin_container/content/file_load_section"]
 title = "Open a File"
