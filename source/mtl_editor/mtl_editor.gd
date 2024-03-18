@@ -13,6 +13,7 @@ class_name MtlEditor extends Control
 
 func _ready() -> void:
 	MtlLoadHandler.mtl_editor = self
+	MtlSaveHandler.mtl_editor = self
 	MtlLoadHandler.load_from_cache()
 	browse_button.pressed.connect(file_dialog.popup)
 	load_button.pressed.connect(MtlLoadHandler.load_mtl_file)
@@ -27,3 +28,15 @@ func _on_close_button_pressed() -> void:
 	path_line_edit.text = ""
 	close_button.disabled = true
 	save_button.disabled = true
+
+
+func get_materials_file_string() -> String:
+	var materials_file_string: String = ""
+	for material: MaterialEditor in materials_container.get_children():
+		materials_file_string += material.get_file_string() + "\n"
+	return materials_file_string
+
+
+func update_preview() -> void:
+	for material: MaterialEditor in materials_container.get_children():
+		material.update_preview()

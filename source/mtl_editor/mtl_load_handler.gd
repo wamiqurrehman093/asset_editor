@@ -94,7 +94,9 @@ func get_file_content_lines() -> PackedStringArray:
 
 func get_file_content(file_path: String) -> String:
 	var file: FileAccess = FileAccess.open(file_path, FileAccess.READ)
-	return file.get_as_text()
+	var file_content: String = file.get_as_text()
+	file.close()
+	return file_content
 
 
 func load_material_info_for_material_editor() -> void:
